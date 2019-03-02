@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <form method="post" action="{{ url_for('historical_rates') }}">
+            {{ form.hidden_tag() }}
+
+            {{ form.start_date.label }} {{ form.start_date() }}
+            {% if form.start_date.errors %}
+                Error: {{ ', '.join(form.start_date.errors) }}
+            {% endif %}
+
+            {{ form.end_date.label }} {{ form.end_date() }}
+            {% if form.end_date.errors %}
+                Error: {{ ', '.join(form.end_date.errors) }}
+            {% endif %}
+
+            {{ form.base_currency_list.label }} {{ form.base_currency_list() }}
+            {% if form.base_currency_list.errors %}
+                Error: {{ ', '.join(form.base_currency_list.errors) }}
+            {% endif %}
+
+            <input type="submit" value="Get Rates"/>
+        </form>
+        {% if latest_result or historical_result %}
+            <table>
+                <tr>
+                <th>Latest Rates</th>
+                <th>Historical Rates</th> 
+                </tr>
+                <tr>
+                <td valign="top">{{ latest_result }}</td>
+                <td valign="top">{{ historical_result }}</td> 
+                </tr>
+            </table>
+        {% endif %}
+    </body>
+</html>
